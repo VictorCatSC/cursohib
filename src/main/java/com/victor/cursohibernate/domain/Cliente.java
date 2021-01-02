@@ -2,6 +2,7 @@ package com.victor.cursohibernate.domain;
 
 import static com.victor.cursohibernate.domain.enums.TipoCliente.getSafeTipoCliente;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.victor.cursohibernate.domain.enums.TipoCliente;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Cliente implements Serializable
 	private String cpfOuCnpj;
 	private Integer tipoCliente;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 

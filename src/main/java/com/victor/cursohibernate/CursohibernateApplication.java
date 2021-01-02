@@ -1,14 +1,10 @@
 package com.victor.cursohibernate;
 
-import com.victor.cursohibernate.domain.Categoria;
-import com.victor.cursohibernate.domain.Cidade;
-import com.victor.cursohibernate.domain.Estado;
-import com.victor.cursohibernate.domain.Produto;
-import com.victor.cursohibernate.repositoriesDAO.CategoriaRepository;
-import com.victor.cursohibernate.repositoriesDAO.CidadeRepository;
-import com.victor.cursohibernate.repositoriesDAO.EstadoRepository;
-import com.victor.cursohibernate.repositoriesDAO.ProdutoRepository;
+import com.victor.cursohibernate.domain.*;
+import com.victor.cursohibernate.domain.enums.TipoCliente;
+import com.victor.cursohibernate.repositoriesDAO.*;
 import java.util.Arrays;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,6 +25,12 @@ public class CursohibernateApplication implements CommandLineRunner
 
 	@Autowired
 	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private ClienteRepository clienteRepository;
+
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 
 	public static void main(String[] args)
 	{
@@ -69,5 +71,15 @@ public class CursohibernateApplication implements CommandLineRunner
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
+		Cliente cli1 = new Cliente(null, "Maria silva", "maria@gmail.com", "19344569704", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("12314521412","132214124321"));
+
+		Endereco e1 = new Endereco(null, "rua flores", "300", "apto 303", "Jardim", "432523523", cli1, c1);
+		Endereco e2 = new Endereco(null, "Av amtos", "105", "sala 12", "centro", "1234534", cli1, c2);
+
+		cli1.setEnderecos(Arrays.asList(e1,e2));
+
+		clienteRepository.saveAll(Arrays.asList(cli1));
+		enderecoRepository.saveAll(Arrays.asList(e1,e2));
 	}
 }

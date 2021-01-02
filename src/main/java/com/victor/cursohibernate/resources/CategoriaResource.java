@@ -1,27 +1,26 @@
 package com.victor.cursohibernate.resources;
 
 import com.victor.cursohibernate.domain.Categoria;
+import com.victor.cursohibernate.service.CategoriaService;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value="/categorias")
+@RequestMapping(value = "/categorias")
 public class CategoriaResource
 {
-	//@RequestMapping(method = RequestMethod.GET)
-	@GetMapping
-	public List<Categoria> listar(){
-		Categoria cat1 = new Categoria(1, "Informática");
-		Categoria cat2 = new Categoria(2, "Escritório");
+	@Autowired
+	private CategoriaService service;
 
-		List<Categoria> categoriaList = new ArrayList<>();
-		categoriaList.add(cat1);
-		categoriaList.add(cat2);
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	//@GetMapping
+	public ResponseEntity<?> find(@PathVariable Integer id)
+	{
+		Categoria obj = service.buscar(id);
 
-		return categoriaList;
+		return ResponseEntity.ok().body(obj);
 	}
 }

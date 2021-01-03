@@ -1,6 +1,5 @@
 package com.victor.cursohibernate.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class Categoria implements Serializable
 	private Integer id;
 	private String nome;
 
-	@JsonManagedReference
+	//JsonManagedReference para com referencia ciclica, porem dava alguns problemas com json e foi usado apenas um @JsonIgnore no backReference
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
 

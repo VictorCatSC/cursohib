@@ -2,8 +2,7 @@ package com.victor.cursohibernate.domain;
 
 import static com.victor.cursohibernate.domain.enums.TipoCliente.getSafeTipoCliente;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.victor.cursohibernate.domain.enums.TipoCliente;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class Cliente implements Serializable
 	private String cpfOuCnpj;
 	private Integer tipoCliente;
 
-	@JsonManagedReference
+	//JsonManagedReference para com referencia ciclica, porem dava alguns problemas com json e foi usado apenas um @JsonIgnore no backReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 
@@ -32,7 +31,8 @@ public class Cliente implements Serializable
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
-	@JsonBackReference
+	//@JsonBackReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 

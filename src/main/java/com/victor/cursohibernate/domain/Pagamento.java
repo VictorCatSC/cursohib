@@ -1,6 +1,6 @@
 package com.victor.cursohibernate.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.victor.cursohibernate.domain.enums.EstadoPagamento;
 import java.io.Serializable;
 import javax.persistence.*;
@@ -15,7 +15,8 @@ public abstract class Pagamento implements Serializable
 	private Integer id;
 	private Integer estadoPagamento;
 
-	@JsonBackReference
+	//@JsonBackReference
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId

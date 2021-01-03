@@ -1,6 +1,5 @@
 package com.victor.cursohibernate.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import javax.persistence.*;
 
@@ -15,7 +14,7 @@ public class Cidade implements Serializable
 	private Integer id;
 	private String nome;
 
-	@JsonManagedReference
+	//JsonManagedReference para com referencia ciclica, porem dava alguns problemas com json e foi usado apenas um @JsonIgnore no backReference
 	@ManyToOne
 	@JoinColumn(name = "estado_id")
 	private Estado estado;

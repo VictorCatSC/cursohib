@@ -1,8 +1,10 @@
 package com.victor.cursohibernate;
 
 import com.victor.cursohibernate.domain.*;
+import com.victor.cursohibernate.domain.enums.EstadoPagamento;
 import com.victor.cursohibernate.domain.enums.TipoCliente;
 import com.victor.cursohibernate.repositoriesDAO.*;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,12 @@ public class CursohibernateApplication implements CommandLineRunner
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private PedidoRepository pedidoRepository;
+
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 	public static void main(String[] args)
 	{
@@ -77,9 +85,26 @@ public class CursohibernateApplication implements CommandLineRunner
 		Endereco e1 = new Endereco(null, "rua flores", "300", "apto 303", "Jardim", "432523523", cli1, c1);
 		Endereco e2 = new Endereco(null, "Av amtos", "105", "sala 12", "centro", "1234534", cli1, c2);
 
-		cli1.setEnderecos(Arrays.asList(e1,e2));
+		cli1.setEnderecos(Arrays.asList(e1, e2));
 
 		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1,e2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2020 10:32"), cli1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2020 08:22"), cli1, e2);
+
+		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pagto1);
+
+		Pagamento pagto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2020 00:00"), null);
+		ped2.setPagamento(pagto2);
+
+		cli1.setPedidos(Arrays.asList(ped1, ped2));
+
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1,pagto2));
+
 	}
 }

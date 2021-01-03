@@ -1,5 +1,7 @@
 package com.victor.cursohibernate.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
@@ -14,11 +16,15 @@ public class Pedido implements Serializable
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private Integer id;
+
+	@JsonFormat(pattern = "dd/mm/yyyy HH:mm")
 	private Date instante;
 
+	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
 	private Pagamento pagamento;
 
+	@JsonManagedReference
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;

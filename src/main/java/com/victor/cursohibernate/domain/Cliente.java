@@ -2,6 +2,7 @@ package com.victor.cursohibernate.domain;
 
 import static com.victor.cursohibernate.domain.enums.TipoCliente.getSafeTipoCliente;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.victor.cursohibernate.domain.enums.TipoCliente;
 import java.io.Serializable;
@@ -31,6 +32,7 @@ public class Cliente implements Serializable
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 

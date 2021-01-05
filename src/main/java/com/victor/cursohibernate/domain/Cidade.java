@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Cidade implements Serializable
 {
 
-	//private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id

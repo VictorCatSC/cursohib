@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 public class PagamentoComBoleto extends Pagamento
 {
 
-	//private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@JsonFormat(pattern = "dd/mm/yyyy")
 	private Date dataVencimento;

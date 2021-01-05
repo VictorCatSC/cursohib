@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Estado implements Serializable
 {
 
-	//private static final long serialVersionUID = 1L;v
+	private static final long serialVersionUID = 1L;
 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id

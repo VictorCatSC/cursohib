@@ -1,8 +1,11 @@
 package com.victor.cursohibernate.resources;
 
+import com.victor.cursohibernate.DTO.CategoriaDTO;
 import com.victor.cursohibernate.domain.Categoria;
 import com.victor.cursohibernate.services.CategoriaService;
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +50,15 @@ public class CategoriaResource
 		service.delete(id);
 
 		return ResponseEntity.noContent().build();
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<List<CategoriaDTO>> findAll()
+	{
+		List<Categoria> objList = service.findAll();
+		List<CategoriaDTO> dtoObjList = objList.stream().map(obj -> new CategoriaDTO(obj))
+			.collect(Collectors.toList());
+
+		return ResponseEntity.ok().body(dtoObjList);
 	}
 }

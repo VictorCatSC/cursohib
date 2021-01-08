@@ -2,6 +2,7 @@ package com.victor.cursohibernate.services;
 
 import com.victor.cursohibernate.DTO.CategoriaDTO;
 import com.victor.cursohibernate.domain.Categoria;
+import com.victor.cursohibernate.domain.Cliente;
 import com.victor.cursohibernate.repositoriesDAO.CategoriaRepository;
 import com.victor.cursohibernate.services.exceptions.DataIntegrityException;
 import com.victor.cursohibernate.services.exceptions.ObjectNotFoundException;
@@ -35,11 +36,16 @@ public class CategoriaService
 		return repo.save(obj);
 	}
 
-	public Categoria update(Categoria obj)
+	public Categoria update(Categoria categoria)
 	{
-		find(obj.getId());
+		Categoria newCategoria = find(categoria.getId());
+		updateData(newCategoria, categoria);
+		return repo.save(newCategoria);
+	}
 
-		return repo.save(obj);
+	private void updateData(Categoria newCategoria, Categoria categoria)
+	{
+		newCategoria.setNome(categoria.getNome());
 	}
 
 	public void delete(Integer categoryId)

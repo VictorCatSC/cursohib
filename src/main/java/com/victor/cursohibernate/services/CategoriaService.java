@@ -1,5 +1,6 @@
 package com.victor.cursohibernate.services;
 
+import com.victor.cursohibernate.DTO.CategoriaDTO;
 import com.victor.cursohibernate.domain.Categoria;
 import com.victor.cursohibernate.repositoriesDAO.CategoriaRepository;
 import com.victor.cursohibernate.services.exceptions.DataIntegrityException;
@@ -63,6 +64,10 @@ public class CategoriaService
 	{
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+
+	public Categoria catFromDTO(CategoriaDTO categoriaDTO){
+		return new Categoria(categoriaDTO.getId(), categoriaDTO.getNome());
 	}
 
 }

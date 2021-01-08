@@ -1,4 +1,4 @@
-package com.victor.cursohibernate.resources.exceptions;
+package com.victor.cursohibernate.resources.exception;
 
 import java.io.Serializable;
 

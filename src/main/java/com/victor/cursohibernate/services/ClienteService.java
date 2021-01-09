@@ -1,8 +1,13 @@
 package com.victor.cursohibernate.services;
 
 import com.victor.cursohibernate.DTO.ClienteDTO;
+import com.victor.cursohibernate.DTO.ClienteNewDTO;
+import com.victor.cursohibernate.domain.Cidade;
 import com.victor.cursohibernate.domain.Cliente;
+import com.victor.cursohibernate.domain.Endereco;
+import com.victor.cursohibernate.domain.enums.TipoCliente;
 import com.victor.cursohibernate.repositoriesDAO.ClienteRepository;
+import com.victor.cursohibernate.repositoriesDAO.EnderecoRepository;
 import com.victor.cursohibernate.services.exceptions.DataIntegrityException;
 import com.victor.cursohibernate.services.exceptions.ObjectNotFoundException;
 import java.util.List;
@@ -18,20 +23,31 @@ import org.springframework.stereotype.Service;
 public class ClienteService
 {
 	@Autowired
-	private ClienteRepository repo;
+	private ClienteRepository clienteRepository;
 
-	public Cliente buscar(Integer id)
+	@Autowired
+	private EnderecoRepository enderecoRepository;
+
+	public Cliente find(Integer id)
 	{
-		Optional<Cliente> obj = repo.findById(id);
+		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 			"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 
+	public Cliente insert(Cliente cliente)
+	{
+		cliente.setId(null);//certificar q é uma insercao e nao alteracao
+		cliente = clienteRepository.save(cliente);
+		enderecoRepository.saveAll(cliente.getEnderecos());
+		return cliente;
+	}
+
 	public Cliente update(Cliente cliente)
 	{
-		Cliente newCliente = buscar(cliente.getId());
+		Cliente newCliente = find(cliente.getId());
 		updateData(newCliente, cliente);
-		return repo.save(newCliente);
+		return clienteRepository.save(newCliente);
 	}
 
 	private void updateData(Cliente newCliente, Cliente cliente)
@@ -42,10 +58,10 @@ public class ClienteService
 
 	public void delete(Integer categoryId)
 	{
-		buscar(categoryId);
+		find(categoryId);
 		try
 		{
-			repo.deleteById(categoryId);
+			clienteRepository.deleteById(categoryId);
 		}
 		catch (DataIntegrityViolationException e)
 		{
@@ -55,17 +71,47 @@ public class ClienteService
 
 	public List<Cliente> findAll()
 	{
-		return repo.findAll();
+		return clienteRepository.findAll();
 	}
 
 	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction)
 	{
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
-		return repo.findAll(pageRequest);
+		PageRequest pageRequest = PageRequest
+			.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
+		return clienteRepository.findAll(pageRequest);
 	}
 
-	public Cliente catFromDTO(ClienteDTO categoriaDTO){
-		return new Cliente(categoriaDTO.getId(), categoriaDTO.getName(), categoriaDTO.getEmail(), null, null);
+	public Cliente cliFromDTO(ClienteDTO clienteDTO)
+	{
+		return new Cliente(clienteDTO.getId(), clienteDTO.getName(), clienteDTO.getEmail(), null,
+			null);
+	}
+
+	public Cliente cliFromDTO(ClienteNewDTO clienteNewDTO)
+	{
+		Cliente cli = new Cliente(null, clienteNewDTO.getNome(), clienteNewDTO.getEmail(),
+			clienteNewDTO.getCpfOuCnpj(),
+			TipoCliente.getSafeTipoCliente(clienteNewDTO.getTipoCliente()));
+
+		Cidade cidade = new Cidade(clienteNewDTO.getCidadeId(), null, null);
+
+		Endereco end = new Endereco(null, clienteNewDTO.getLogradouro(), clienteNewDTO.getNumero(),
+			clienteNewDTO.getComplemento(), clienteNewDTO.getBairro(), clienteNewDTO.getCep(), cli,
+			cidade);
+		cli.getEnderecos().add(end);
+		cli.getTelefones().add(clienteNewDTO.getTelefone1());
+
+		if (clienteNewDTO.getTelefone2() != null)
+		{
+			cli.getTelefones().add(clienteNewDTO.getTelefone2());
+		}
+
+		if (clienteNewDTO.getTelefone3() != null)
+		{
+			cli.getTelefones().add(clienteNewDTO.getTelefone2());
+		}
+
+		return cli;
 	}
 
 

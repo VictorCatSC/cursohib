@@ -16,6 +16,9 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 {
 
 
+	@Autowired
+	private ClienteRepository clienteRepository;
+
 	@Override
 	public void initialize(ClienteInsert ann)
 	{
@@ -34,10 +37,10 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 			list.add(new FieldErrorMessage("cpfOuCnpj", "CNPJ inválido"));
 		}
 
-//		Cliente aux = repo.findByEmail(objDto.getEmail());
-//		if (aux != null) {
-//			list.add(new FieldErrorMessage("email", "Email já existente"));
-//		}
+		Cliente aux = clienteRepository.findByEmail(objDto.getEmail());
+		if (aux != null) {
+			list.add(new FieldErrorMessage("email", "Email já existente"));
+		}
 
 		for (FieldErrorMessage e : list)
 		{

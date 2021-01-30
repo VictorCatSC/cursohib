@@ -1,12 +1,13 @@
 package com.victor.cursohibernate.DTO;
 
-import com.victor.cursohibernate.domain.Categoria;
 import com.victor.cursohibernate.domain.Cliente;
+import com.victor.cursohibernate.services.validation.ClienteUpdate;
 import java.io.Serializable;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable
 {
 	private static final long serialVersionUID = 1L;

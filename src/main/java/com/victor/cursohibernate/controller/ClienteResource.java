@@ -1,4 +1,4 @@
-package com.victor.cursohibernate.resources;
+package com.victor.cursohibernate.controller;
 
 import com.victor.cursohibernate.DTO.ClienteDTO;
 import com.victor.cursohibernate.DTO.ClienteNewDTO;
@@ -42,10 +42,10 @@ public class ClienteResource
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO categoriaDTO,
+	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO,
 		@PathVariable Integer id)
 	{
-		Cliente obj = service.cliFromDTO(categoriaDTO);
+		Cliente obj = service.cliFromDTO(clienteDTO);
 		obj.setId(id);
 		obj = service.update(obj);
 

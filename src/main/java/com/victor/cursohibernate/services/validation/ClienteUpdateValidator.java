@@ -1,14 +1,10 @@
 package com.victor.cursohibernate.services.validation;
 
 import com.victor.cursohibernate.DTO.ClienteDTO;
-import com.victor.cursohibernate.DTO.ClienteNewDTO;
 import com.victor.cursohibernate.domain.Cliente;
-import com.victor.cursohibernate.domain.enums.TipoCliente;
 import com.victor.cursohibernate.repositoriesDAO.ClienteRepository;
-import com.victor.cursohibernate.resources.exception.FieldErrorMessage;
-import com.victor.cursohibernate.services.validation.utils.BR;
+import com.victor.cursohibernate.controller.exception.FieldErrorMessage;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;

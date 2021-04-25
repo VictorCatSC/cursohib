@@ -1,4 +1,4 @@
-package com.victor.cursohibernate.resources.exception;
+package com.victor.cursohibernate.controller.exception;
 
 import com.victor.cursohibernate.services.exceptions.DataIntegrityException;
 import com.victor.cursohibernate.services.exceptions.ObjectNotFoundException;

@@ -1,4 +1,4 @@
-package com.victor.cursohibernate.resources;
+package com.victor.cursohibernate.controller;
 
 import com.victor.cursohibernate.domain.Pedido;
 import com.victor.cursohibernate.services.PedidoService;

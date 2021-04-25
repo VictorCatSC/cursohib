@@ -1,4 +1,4 @@
-package com.victor.cursohibernate.resources.exception;
+package com.victor.cursohibernate.controller.exception;
 
 import java.util.ArrayList;
 import java.util.List;

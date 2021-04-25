@@ -4,7 +4,7 @@ import com.victor.cursohibernate.DTO.ClienteNewDTO;
 import com.victor.cursohibernate.domain.Cliente;
 import com.victor.cursohibernate.domain.enums.TipoCliente;
 import com.victor.cursohibernate.repositoriesDAO.ClienteRepository;
-import com.victor.cursohibernate.resources.exception.FieldErrorMessage;
+import com.victor.cursohibernate.controller.exception.FieldErrorMessage;
 import com.victor.cursohibernate.services.validation.utils.BR;
 import java.util.ArrayList;
 import java.util.List;

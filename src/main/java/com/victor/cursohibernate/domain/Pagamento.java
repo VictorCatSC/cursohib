@@ -1,12 +1,14 @@
 package com.victor.cursohibernate.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.victor.cursohibernate.domain.enums.EstadoPagamento;
 import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "@type")
 public abstract class Pagamento implements Serializable
 {
 	private static final long serialVersionUID = 1L;

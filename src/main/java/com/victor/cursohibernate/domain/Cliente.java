@@ -99,11 +99,6 @@ public class Cliente implements Serializable
 		return tc;
 	}
 
-	public void setTipoCliente(Integer tipoCliente)
-	{
-		this.tipoCliente = tipoCliente;
-	}
-
 	public List<Pedido> getPedidos()
 	{
 		return pedidos;

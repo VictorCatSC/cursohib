@@ -1,11 +1,13 @@
 package com.victor.cursohibernate.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.victor.cursohibernate.domain.enums.EstadoPagamento;
 import java.util.Date;
 import javax.persistence.Entity;
 
 @Entity
+@JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento
 {
 

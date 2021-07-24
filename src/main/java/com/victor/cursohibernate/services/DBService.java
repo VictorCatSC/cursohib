@@ -10,11 +10,16 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DBService
 {
+
+	@Autowired
+	private BCryptPasswordEncoder pe;
+
 	@Autowired
 	private CategoriaRepository categoriaRepository;
 
@@ -103,7 +108,7 @@ public class DBService
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 		Cliente cli1 = new Cliente(null, "Maria silva", "victor.sk8.santos@gmail.com", "19344569704",
-			TipoCliente.PESSOAFISICA);
+			TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("12314521412", "132214124321"));
 
 		Endereco e1 = new Endereco(null, "rua flores", "300", "apto 303", "Jardim", "432523523", cli1,

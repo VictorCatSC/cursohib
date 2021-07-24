@@ -2,6 +2,7 @@ package com.victor.cursohibernate.services;
 
 import com.victor.cursohibernate.domain.*;
 import com.victor.cursohibernate.domain.enums.EstadoPagamento;
+import com.victor.cursohibernate.domain.enums.Perfil;
 import com.victor.cursohibernate.domain.enums.TipoCliente;
 import com.victor.cursohibernate.repositoriesDAO.*;
 import java.text.ParseException;
@@ -111,14 +112,23 @@ public class DBService
 			TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("12314521412", "132214124321"));
 
+
+		Cliente cli2 = new Cliente(null, "João silva", "victor.sk8.santos2@gmail.com", "32792460083",
+				TipoCliente.PESSOAFISICA, pe.encode("123"));
+		cli2.addPerfil(Perfil.ADMIN);
+		cli2.getTelefones().addAll(Arrays.asList("5234234", "234234"));
+
 		Endereco e1 = new Endereco(null, "rua flores", "300", "apto 303", "Jardim", "432523523", cli1,
 			c1);
 		Endereco e2 = new Endereco(null, "Av amtos", "105", "sala 12", "centro", "1234534", cli1, c2);
 
-		cli1.setEnderecos(Arrays.asList(e1, e2));
+		Endereco e3 = new Endereco(null, "Av floriano", "777", "", "sul", "98765", cli2, c2);
 
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		cli1.setEnderecos(Arrays.asList(e1, e2));
+		cli2.setEnderecos(Arrays.asList(e3));
+
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 

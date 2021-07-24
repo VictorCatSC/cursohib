@@ -12,7 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "/pedidos")
-public class PedidoResource
+public class PedidoController
 {
 	@Autowired
 	private PedidoService service;
